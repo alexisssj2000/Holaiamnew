@@ -1,0 +1,122 @@
+/* 1. Contenedor principal */
+.timeline-section {
+  width: 100%;
+}
+
+.section-title {
+  color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  text-align: left;
+}
+
+/* 2. La línea de tiempo vertical */
+.timeline {
+  position: relative;
+  /* Damos espacio a la izquierda para dibujar la línea */
+  padding-left: 40px; 
+}
+
+/* Dibujamos la línea continua usando ::before en el contenedor padre */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8px; /* Posiciona la línea a la izquierda */
+  height: 100%;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.1); /* Línea base sutil */
+}
+
+/* 3. Cada elemento de la línea de tiempo */
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+/* El último elemento no necesita tanto margen inferior */
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+/* 4. EL ROMBO (El punto en la línea de tiempo) */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  /* Lo posicionamos exactamente sobre la línea vertical */
+  left: -38px; 
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  
+  /* Aquí está el truco: lo rotamos para hacerlo rombo */
+  transform: rotate(45deg); 
+  
+  background-color: #121212; /* Centro oscuro */
+  border: 2px solid #4ade80; /* Borde verde (tu color característico) */
+  transition: all 0.3s ease;
+  z-index: 2; /* Lo ponemos por encima de la línea */
+}
+
+/* Efecto al pasar el mouse por encima del rombo o la tarjeta */
+.timeline-item:hover::before {
+  background-color: #4ade80; /* Se rellena de verde */
+  box-shadow: 0 0 15px rgba(74, 222, 128, 0.6); /* Brillo neón */
+  transform: rotate(45deg) scale(1.2); /* Crece un poquito */
+}
+
+/* 5. La Fecha */
+.timeline-date {
+  color: #4ade80;
+  font-family: monospace; /* Fuente de código para las fechas */
+  font-size: 0.95rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 0.8rem;
+  display: inline-block;
+  background: rgba(74, 222, 128, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+}
+
+/* 6. La Tarjeta de Contenido (Glassmorphism) */
+.glass-card {
+  background: rgba(18, 18, 18, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.timeline-item:hover .glass-card {
+  transform: translateX(10px); /* La tarjeta se mueve un poco a la derecha */
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+/* 7. Textos de la tarjeta */
+.glass-card h3 {
+  color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.institution {
+  color: #a1a1aa;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.description {
+  color: #d1d5db;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
