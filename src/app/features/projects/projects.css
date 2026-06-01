@@ -1,0 +1,107 @@
+/* 1. Título de la sección */
+.section-title {
+  color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: left; /* Alineado a la izquierda para guiar el carrusel */
+}
+
+/* 2. El contenedor del Carrusel */
+.projects-carousel {
+  display: flex;
+  gap: 2rem;
+  overflow-x: hidden; /* Activa el scroll horizontal si los elementos no caben */
+  padding-bottom: 2rem; /* Espacio para que la sombra no se corte */
+  
+  /* Magia de CSS para móviles: hace que el scroll se "imante" a cada tarjeta */
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+/* Estilizamos la barra de desplazamiento (Scrollbar) para que no se vea fea */
+.projects-carousel::-webkit-scrollbar {
+  height: 8px;
+}
+.projects-carousel::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+.projects-carousel::-webkit-scrollbar-thumb {
+  background: rgba(74, 222, 128, 0.3); /* Verde semi-transparente */
+  border-radius: 10px;
+}
+.projects-carousel::-webkit-scrollbar-thumb:hover {
+  background: rgba(74, 222, 128, 0.8);
+}
+
+/* 3. La Tarjeta del Proyecto */
+.project-card {
+  /* En móviles ocupa casi toda la pantalla, en PC mide 350px exactos */
+  flex: 0 0 clamp(280px, 85vw, 350px);
+  scroll-snap-align: start; /* Punto de imantación del scroll */
+  
+  background: rgba(18, 18, 18, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  overflow: hidden; /* Evita que la imagen se salga de los bordes redondeados */
+  text-decoration: none; /* Quita el subrayado del link */
+  
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Efecto Hover para PC */
+.project-card:hover {
+  transform: translateY(-8px);
+  border-color: #4ade80;
+  box-shadow: 0 10px 30px rgba(74, 222, 128, 0.1);
+}
+
+/* 4. La Imagen */
+.image-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Formato de pantalla panorámica */
+  overflow: hidden;
+}
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Evita que la imagen se aplaste o estire */
+  transition: transform 0.5s ease;
+}
+.project-card:hover .image-wrapper img {
+  transform: scale(1.05); /* Pequeño zoom a la imagen al pasar el mouse */
+}
+
+/* 5. El Contenido de texto */
+.card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Hace que el texto empuje hacia abajo uniformemente */
+}
+
+.card-title {
+  color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.card-subtitle {
+  color: #4ade80;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 1rem 0;
+}
+
+.card-desc {
+  color: #a1a1aa;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+

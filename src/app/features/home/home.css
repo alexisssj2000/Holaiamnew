@@ -1,0 +1,49 @@
+/* 1. Contenedor Maestro */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra todo horizontalmente */
+  max-width: 1000px; /* Evita que el texto se estire infinito en monitores grandes */
+  margin: 0 auto; /* Centra el contenedor en la pantalla */
+  padding: 6rem 2rem 2rem 2rem; /* El padding top da espacio para que no choque con el Navbar */
+  text-align: center;
+}
+
+/* 2. Tu Nombre (El foco principal) */
+.home-container h1 {
+  font-size: clamp(3rem, 8vw, 5rem); /* Se adapta automáticamente a celulares y pantallas grandes */
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -2px; /* Junta un poco las letras para un look más moderno */
+}
+
+/* 3. Tu Título Profesional */
+.subtitle {
+  font-size: 1.2rem;
+  color: #4ade80; /* El mismo verde de las partículas para hacer "match" */
+  font-weight: 600;
+  letter-spacing: 4px; /* Letras separadas para contraste visual con el h1 */
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+/* 4. Tu Descripción (Pitch) */
+.description {
+  font-size: 1.15rem;
+  line-height: 1.7; /* Mucho aire entre líneas para facilitar la lectura */
+  color: #a1a1aa; /* Un gris neutro para que no pelee con el blanco de tu nombre */
+  max-width: 700px; /* Mantiene la lectura cómoda (entre 50 y 75 caracteres por línea) */
+  margin-bottom: 5rem; /* Un buen espacio en blanco antes de llegar a tus habilidades */
+}
+
+/* 5. Estructura para tus componentes hijos */
+app-habilidades,
+app-projects,
+app-certificados {
+  width: 100%;
+  margin-bottom: 6rem; /* Separación consistente entre secciones */
+  display: block; /* Asegura que tomen su propio bloque en la pantalla */
+}
