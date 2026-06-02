@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Asegúrate de tenerlo para las directivas estructuradas
 import { ProjectService } from '../../core/services/project.service';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-projects',
@@ -29,6 +30,12 @@ export class Projects implements OnInit, AfterViewInit, OnDestroy {
         console.error('Error al conectar con el backend:', err);
       }
     });
+  }
+
+  getImageUrl(imagePath: string): string {
+    if (!imagePath) return '';
+    // El backend ya limpia 'src/uploads/', así que solo unimos la URL base estática
+    return `${environment.staticUrl}/uploads/${imagePath}`;
   }
 
   // Lógica del carrusel automático (se mantiene igual)

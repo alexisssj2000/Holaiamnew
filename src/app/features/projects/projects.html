@@ -9,7 +9,7 @@
     @for (project of projects; track project._id) {
       <a [href]="project.url" target="_blank" class="project-card">
         <div class="image-wrapper">
-          <img [src]="project.img" [alt]="project.name">
+          <img [src]='getImageUrl(project.img)' [alt]="project.name">
         </div>
         <div class="card-content">
           <h3 class="card-title">{{ project.name }}</h3>
