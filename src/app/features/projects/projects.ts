@@ -1,55 +1,61 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common'; // Asegúrate de tenerlo para las directivas estructuradas
+import { ProjectService } from '../../core/services/project.service';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
+  imports: [CommonModule], // Necesario si usas ciclos en el HTML
   templateUrl: './projects.html',
   styleUrl: './projects.css'
 })
-export class Projects implements AfterViewInit, OnDestroy {
-  // 1. Capturamos el div del carrusel usando el #carousel del HTML
+export class Projects implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('carousel') carouselRef!: ElementRef<HTMLDivElement>;
-  
-  // Variable para guardar el temporizador y poder pausarlo
   private scrollInterval: any;
+  
+  // Aquí guardaremos los proyectos que vengan de la base de datos
+  projects: any[] = []; 
 
-  // 2. Iniciamos el movimiento cuando el componente ya se dibujó en pantalla
+  // Inyectamos el servicio en el constructor
+  constructor(private projectService: ProjectService) {}
+
+  ngOnInit(): void {
+    // Llamamos a la API en cuanto el componente se inicializa
+    this.projectService.getProjects().subscribe({
+      next: (data) => {
+        this.projects = data; // Guardamos los datos del backend
+      },
+      error: (err) => {
+        console.error('Error al conectar con el backend:', err);
+      }
+    });
+  }
+
+  // Lógica del carrusel automático (se mantiene igual)
   ngAfterViewInit(): void {
     this.startScroll();
   }
 
-  // 3. Limpiamos el temporizador si el usuario cambia de página para evitar bugs
   ngOnDestroy(): void {
     this.pauseScroll();
   }
 
-  // 4. Función para arrancar el movimiento automático
   startScroll(): void {
-    // Evitamos que se creen múltiples intervalos si el usuario mueve mucho el mouse
     this.pauseScroll(); 
-    
-    // Configuramos el temporizador para que se ejecute cada 3 segundos (3000 ms)
     this.scrollInterval = setInterval(() => {
-      if (this.carouselRef) {
+      if (this.carouselRef && this.projects.length > 0) { // Validamos que ya haya proyectos cargados
         const el = this.carouselRef.nativeElement;
-        
-        // Calculamos si ya llegamos al final del scroll
         const maxScroll = el.scrollWidth - el.clientWidth;
-        
-        // Si ya está al final, lo regresamos al inicio (0). Si no, lo movemos 350px a la derecha.
         if (el.scrollLeft >= maxScroll - 10) { 
           el.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
           el.scrollBy({ left: 350, behavior: 'smooth' });
         }
       }
-    }, 3000); // Puedes cambiar el 3000 para que vaya más rápido o más lento
+    }, 3000);
   }
 
-  // 5. Función para pausar el movimiento
   pauseScroll(): void {
-    if (this.scrollInterval) {
-      clearInterval(this.scrollInterval);
-    }
+    if (this.scrollInterval) clearInterval(this.scrollInterval);
   }
 }

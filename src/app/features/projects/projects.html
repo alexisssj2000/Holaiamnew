@@ -6,47 +6,20 @@
        (mouseenter)="pauseScroll()" 
        (mouseleave)="startScroll()">
     
-    <a href="#" target="_blank" class="project-card">
-      <div class="image-wrapper">
-        <img src="https://via.placeholder.com/400x225/2a2a2a/4ade80?text=Proyecto+1" alt="Project 1">
-      </div>
-      <div class="card-content">
-        <h3 class="card-title">Project Title One</h3>
-        <h4 class="card-subtitle">Full-Stack App</h4>
-        <p class="card-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
-      </div>
-    </a>
+    @for (project of projects; track project._id) {
+      <a [href]="project.link" target="_blank" class="project-card">
+        <div class="image-wrapper">
+          <img [src]="project.image" [alt]="project.title">
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">{{ project.title }}</h3>
+          <h4 class="card-subtitle">{{ project.subtitle }}</h4>
+          <p class="card-desc">{{ project.description }}</p>
+        </div>
+      </a>
+    } @empty {
+      <p style="color: #a1a1aa;">Conectando con el servidor y cargando proyectos...</p>
+    }
 
-    <a href="#" target="_blank" class="project-card">
-      <div class="image-wrapper">
-        <img src="https://via.placeholder.com/400x225/2a2a2a/4ade80?text=Proyecto+2" alt="Project 2">
-      </div>
-      <div class="card-content">
-        <h3 class="card-title">Project Title Two</h3>
-        <h4 class="card-subtitle">API REST</h4>
-        <p class="card-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
-      </div>
-    </a>
-    <a href="#" target="_blank" class="project-card">
-      <div class="image-wrapper">
-        <img src="https://via.placeholder.com/400x225/2a2a2a/4ade80?text=Proyecto+2" alt="Project 2">
-      </div>
-      <div class="card-content">
-        <h3 class="card-title">Project Title Two</h3>
-        <h4 class="card-subtitle">API REST</h4>
-        <p class="card-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
-      </div>
-    </a>
-    <a href="#" target="_blank" class="project-card">
-      <div class="image-wrapper">
-        <img src="https://via.placeholder.com/400x225/2a2a2a/4ade80?text=Proyecto+2" alt="Project 2">
-      </div>
-      <div class="card-content">
-        <h3 class="card-title">Project Title Two</h3>
-        <h4 class="card-subtitle">API REST</h4>
-        <p class="card-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
-      </div>
-    </a>
-
-    </div>
+  </div>
 </section>
