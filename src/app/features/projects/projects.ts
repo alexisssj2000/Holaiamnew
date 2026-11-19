@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Asegúrate de tenerlo para las directivas estructuradas
 import { ProjectService } from '../../core/services/project.service';
-import { environment } from '../../../environments/environment.development';
+// import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-projects',
@@ -21,21 +21,21 @@ export class Projects implements OnInit, AfterViewInit, OnDestroy {
   constructor(private projectService: ProjectService) {}
 
   ngOnInit(): void {
-    // Llamamos a la API en cuanto el componente se inicializa
-    this.projectService.getProjects().subscribe({
-      next: (data) => {
-        this.projects = data; // Guardamos los datos del backend
-      },
-      error: (err) => {
-        console.error('Error al conectar con el backend:', err);
-      }
-    });
+  //   // Llamamos a la API en cuanto el componente se inicializa
+  //   this.projectService.getProjects().subscribe({
+  //     next: (data) => {
+  //       this.projects = data; // Guardamos los datos del backend
+  //     },
+  //     error: (err) => {
+  //       console.error('Error al conectar con el backend:', err);
+  //     }
+  //   });
   }
 
   getImageUrl(imagePath: string): string {
     if (!imagePath) return '';
     // El backend ya limpia 'src/uploads/', así que solo unimos la URL base estática
-    return `${environment.staticUrl}/uploads/${imagePath}`;
+    return `./public/uploads/${imagePath}`;
   }
 
   // Lógica del carrusel automático (se mantiene igual)
