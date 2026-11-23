@@ -6,20 +6,19 @@
        (mouseenter)="pauseScroll()" 
        (mouseleave)="startScroll()">
     
-    @for (project of projects; track project._id) {
-      <a [href]="project.url" target="_blank" class="project-card">
+    
+      <a href="projecturl" target="_blank" class="project-card">
         <div class="image-wrapper">
-          <img [src]='getImageUrl(project.img)' [alt]="project.name">
+          <img src='/logoempresa.jpeg' alt="projectname">
         </div>
         <div class="card-content">
-          <h3 class="card-title">{{ project.name }}</h3>
-          <h4 class="card-subtitle">{{ project.type }}</h4>
-          <p class="card-desc">{{ project.description }}</p>
+          <h3 class="card-title">hola</h3>
+          <h4 class="card-subtitle">lola</h4>
+          <p class="card-desc">cola</p>
         </div>
       </a>
-    } @empty {
-      <p style="color: #a1a1aa;">Conectando con el servidor y cargando proyectos...</p>
-    }
+    
+    
 
   </div>
 </section>

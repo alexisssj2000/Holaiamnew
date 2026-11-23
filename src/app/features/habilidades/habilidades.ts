@@ -13,12 +13,16 @@ export class Habilidades implements AfterViewInit {
   ngAfterViewInit(): void {
     // Inicializamos GridStack con opciones modernas
     GridStack.init({
-      cellHeight: '180px', // Altura base de cada bloque
-      margin: 15,          // Espacio entre tarjetas
-      minRow: 1,           // Mínimo de filas
-      float: true,         // Permite que las tarjetas floten hacia arriba
-      animate: true,       // Animaciones suaves al soltar
-      column: 12           // Sistema de 12 columnas (estándar de diseño)
+      cellHeight: '180px',
+      margin: 15,
+      minRow: 1,
+      float: true,
+      animate: true,
+      column: 12,
+      sizeToContent: true,
+      columnOpts: {
+        breakpoints: [{ w: 768, c: 1 }],
+      },
     }, this.gridContainer.nativeElement);
   }
 }
