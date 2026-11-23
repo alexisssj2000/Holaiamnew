@@ -26,10 +26,15 @@
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  
+  box-sizing: border-box;
+
   /* Detalles de interactividad */
   cursor: grab; /* Muestra la manita abierta */
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-card > div {
+  width: 100%;
 }
 
 /* Cuando se está arrastrando la tarjeta */
@@ -61,23 +66,35 @@
   padding: 0;
   margin: 0;
   display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
+  flex-wrap: wrap;
+  gap: 0.65rem;
 }
 
 .skill-list li {
   color: #f3f4f6;
-  font-size: 0.95rem;
+  background: rgba(74, 222, 128, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.18);
+  border-radius: 999px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.9rem;
   font-family: system-ui, -apple-system, sans-serif;
-  display: flex;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  display: inline-flex;
   align-items: center;
+  gap: 0.45rem;
 }
 
-/* Añadimos un pequeño punto verde tipo viñeta tecnológica */
-.skill-list li::before {
-  content: '>';
-  color: #4ade80;
-  font-weight: bold;
-  margin-right: 10px;
-  font-family: monospace;
+.skill-list li > img,
+.skill-icons img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.skill-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
 }

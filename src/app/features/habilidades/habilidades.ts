@@ -12,17 +12,23 @@ export class Habilidades implements AfterViewInit {
 
   ngAfterViewInit(): void {
     // Inicializamos GridStack con opciones modernas
-    GridStack.init({
-      cellHeight: '180px',
-      margin: 15,
-      minRow: 1,
-      float: true,
-      animate: true,
-      column: 12,
-      sizeToContent: true,
-      columnOpts: {
-        breakpoints: [{ w: 768, c: 1 }],
+    GridStack.init(
+      {
+        cellHeight: '90px',
+        margin: 1,
+        minRow: 1,
+        float: false,
+        animate: true,
+        column: 12,
+        sizeToContent: true,
+        columnOpts: {
+          breakpoints: [
+            { w: 1024, c: 12 },
+            { w: 768, c: 1 },
+          ],
+        },
       },
-    }, this.gridContainer.nativeElement);
+      this.gridContainer.nativeElement,
+    );
   }
 }
