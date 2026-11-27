@@ -1,24 +1,159 @@
-<section class="projects-section">
-  <h2 class="section-title">Proyectos</h2>
+<section class="projects-section" aria-labelledby="projects-title">
+  <h2 class="section-title" id="projects-title">Proyectos</h2>
 
-  <div class="projects-carousel" 
-       #carousel 
-       (mouseenter)="pauseScroll()" 
-       (mouseleave)="startScroll()">
-    
-    
-      <a href="https://agro-8w1r.onrender.com/" target="_blank" class="project-card">
-        <div class="image-wrapper">
-          <img src='/Agrosmart.png' alt="AgroSmart">
-        </div>
-        <div class="card-content">
-          <h3 class="card-title">AgroSmart Tech</h3>
-          <h4 class="card-subtitle">Gestión Agrícola Inteligente</h4>
-          <p class="card-desc">Plataforma para la gestión y optimización de operaciones agrícolas.</p>
-        </div>
-      </a>
-    
-    
+  <!-- Controles para recorrer manualmente las tarjetas principales. -->
+  <div
+    class="carousel-controls"
+    aria-label="Controles del carrusel"
+    (mouseenter)="pauseScroll()"
+    (mouseleave)="startScroll()"
+    (focusin)="pauseScroll()"
+    (focusout)="onCarouselFocusOut($event)"
+    >
+    <button
+      class="carousel-control"
+      type="button"
+      aria-label="Ver proyectos anteriores"
+      (click)="scrollCarousel('previous')"
+    >
+      <span aria-hidden="true">&larr;</span>
+    </button>
+    <button
+      class="carousel-control"
+      type="button"
+      aria-label="Ver proyectos siguientes"
+      (click)="scrollCarousel('next')"
+    >
+      <span aria-hidden="true">&rarr;</span>
+    </button>
+    </div>
 
+  <!-- Cada tarjeta abre el modal con los datos del proyecto seleccionado. -->
+  <div
+    class="projects-carousel"
+    #carousel
+    (mouseenter)="pauseScroll()"
+    (mouseleave)="startScroll()"
+    (focusin)="pauseScroll()"
+    (focusout)="onCarouselFocusOut($event)"
+    >
+    @for (project of projects; track project.title) {
+      <button
+        class="project-card"
+        type="button"
+        [attr.aria-label]="'Ver detalles de ' + project.title"
+        (click)="openProject(project, $event)"
+      >
+        <span class="image-wrapper">
+          <img [src]="project.image" [alt]="project.imageAlt">
+        </span>
+        <span class="card-content">
+          <span class="card-title">{{ project.title }}</span>
+          <span class="card-subtitle">{{ project.subtitle }}</span>
+          <span class="card-desc">{{ project.description }}</span>
+          <span class="card-action">Ver detalles</span>
+        </span>
+      </button>
+    }
   </div>
+  <!-- El modal reutiliza la misma lista para detalles y navegación entre proyectos. -->
+  @if (selectedProject; as project) {
+    <div
+      class="modal-backdrop"
+      role="presentation"
+      (click)="onDialogBackdropClick($event)"
+    >
+      <section
+        #projectModal
+        class="project-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-modal-title"
+        aria-describedby="project-modal-description"
+      >
+        <!-- Imagen a la izquierda; descripción, tecnologías, hosting y enlace a la derecha. -->
+        <div class="modal-main">
+          <div class="modal-image-panel">
+            <img class="modal-image" [src]="project.image" [alt]="project.imageAlt">
+          </div>
+          <div class="modal-content">
+            <button
+              #closeButton
+              class="modal-close"
+              type="button"
+              aria-label="Cerrar detalles del proyecto"
+              (click)="closeProject()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <p class="modal-subtitle">{{ project.subtitle }}</p>
+            <h3 id="project-modal-title">{{ project.title }}</h3>
+            <p id="project-modal-description">{{ project.details }}</p>
+
+            <dl class="project-meta">
+              <div>
+                <dt>Tecnologías</dt>
+                <dd class="technology-list">
+                  @for (technology of project.technologies; track technology) {
+                    <span class="technology-tag">{{ technology }}</span>
+                  }
+                </dd>
+              </div>
+              <div>
+                <dt>Hosting</dt>
+                <dd>{{ project.hosting }}</dd>
+              </div>
+            </dl>
+
+            <a
+              class="project-link"
+              [href]="project.url"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Visitar proyecto
+              <span aria-hidden="true">&nearr;</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Carrusel inferior para cambiar de proyecto sin cerrar el modal. -->
+        <div class="modal-projects">
+          <div class="modal-projects-heading">
+            <h4>Más proyectos</h4>
+            <div class="modal-projects-controls">
+              <button
+                type="button"
+                aria-label="Ver proyectos anteriores"
+                (click)="scrollModalProjects('previous')"
+              >
+                <span aria-hidden="true">&larr;</span>
+              </button>
+              <button
+                type="button"
+                aria-label="Ver proyectos siguientes"
+                (click)="scrollModalProjects('next')"
+              >
+                <span aria-hidden="true">&rarr;</span>
+              </button>
+            </div>
+          </div>
+          <div #modalProjectsCarousel class="modal-projects-carousel">
+            @for (otherProject of otherProjects; track otherProject.title) {
+              <button
+                class="modal-project-card"
+                type="button"
+                [attr.aria-label]="'Ver detalles de ' + otherProject.title"
+                (click)="selectProject(otherProject)"
+              >
+                <img [src]="otherProject.image" [alt]="otherProject.imageAlt">
+                <span>{{ otherProject.title }}</span>
+                <span class="modal-project-arrow" aria-hidden="true">&rarr;</span>
+              </button>
+            }
+          </div>
+        </div>
+      </section>
+    </div>
+  }
 </section>
